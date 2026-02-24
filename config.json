@@ -1,0 +1,185 @@
+{
+    "version": "1.0.0",
+    "scenes": [
+        {
+            "scene_id": 1,
+            "scene_name": "学校电教室场景",
+            "templates": [
+                {
+                    "template_id": "lab_standard_v1",
+                    "template_name": "标准电教室模板",
+                    "is_default": true,
+                    "roles": {
+                        "teacher": {
+                            "role_name": "教师机配置",
+                            "config": {
+                                "NETWORK_INTERWORKING": {
+                                    "label": "桌面网络互通",
+                                    "option": "1",
+                                    "desc": "开启",
+                                    "displayCheck": "(val) => val == '1' ? '开启' : '关闭'",
+                                    "jsonOption": ""
+                                },
+                                "MODIFY_COMPUTER_ALIAS": {
+                                    "label": "是否允许用户修改云电脑别名",
+                                    "option": "0",
+                                    "desc": "禁止",
+                                    "displayCheck": "(val) => val == '1' ? '允许' : '禁止'",
+                                    "jsonOption": ""
+                                }
+                            }
+                        },
+                        "student": {
+                            "role_name": "学生机配置",
+                            "config": {
+                                "NETWORK_INTERWORKING": {
+                                    "label": "桌面网络互通",
+                                    "option": "1",
+                                    "desc": "开启",
+                                    "displayCheck": "(val) => val == '1' ? '开启' : '关闭'",
+                                    "jsonOption": ""
+                                },
+                                "REBUILD_AFTER_REBOOT": {
+                                    "label": "是否关机/重启时还原系统",
+                                    "option": "1",
+                                    "desc": "开启(还原至模板)",
+                                    "jsonCheck": "(j: any) => j.enable == '1' && j.rebuildType == '2'",
+                                    "displayCheck": "(val, jsonMatch, remoteItem) => { let s = val == '1' ? '开启' : '关闭'; if(remoteItem?.strategybasicJsonOption) s += ' (自定义)'; return s; }",
+                                    "jsonOption": {
+                                        "rebuildType": "2",
+                                        "enable": "1"
+                                    }
+                                },
+                                "TOOLBAR_MINIMIZE": {
+                                    "label": "桌面工具栏 - 最小化",
+                                    "option": "1",
+                                    "desc": "禁用",
+                                    "parentCode": "DESKTOP_TOOLBAR",
+                                    "jsonCheck": "(j: any) => j?.BigScreen?.deskMin?.status == '0'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "jsonOption": {
+                                        "BigScreen": {
+                                            "deskMin": {
+                                                "status": "0"
+                                            }
+                                        }
+                                    }
+                                },
+                                "TOOLBAR_WINDOW": {
+                                    "label": "桌面工具栏 - 窗口化",
+                                    "option": "1",
+                                    "desc": "禁用",
+                                    "parentCode": "DESKTOP_TOOLBAR",
+                                    "jsonCheck": "(j: any) => j?.BigScreen?.deskWin?.status == '0'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "jsonOption": {
+                                        "BigScreen": {
+                                            "deskWin": {
+                                                "status": "0"
+                                            }
+                                        }
+                                    }
+                                },
+                                "TOOLBAR_TOOLS": {
+                                    "label": "桌面工具栏 - 工具箱",
+                                    "option": "1",
+                                    "desc": "禁用",
+                                    "parentCode": "DESKTOP_TOOLBAR",
+                                    "jsonCheck": "(j: any) => j?.BigScreen?.tools?.status == '0'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "jsonOption": {
+                                        "BigScreen": {
+                                            "tools": {
+                                                "status": "0"
+                                            }
+                                        }
+                                    }
+                                },
+                                "TOOLBAR_EXIT": {
+                                    "label": "桌面工具栏 - 退出菜单",
+                                    "option": "1",
+                                    "desc": "仅保留重启/关机",
+                                    "parentCode": "DESKTOP_TOOLBAR",
+                                    "jsonCheck": "(j: any) => {const ex = j?.BigScreen?.exit?.subItem || {}; return ex.exit?.status == '0' && ex.lock?.status == '0' && ex.suspend?.status == '0' && ex.restart?.status == '1' && ex.shutdown?.status == '1'; }",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "jsonOption": {
+                                        "BigScreen": {
+                                            "exit": {
+                                                "status": "1",
+                                                "subItem": {
+                                                    "exit": {
+                                                        "status": "0"
+                                                    },
+                                                    "lock": {
+                                                        "status": "0"
+                                                    },
+                                                    "suspend": {
+                                                        "status": "0"
+                                                    },
+                                                    "restart": {
+                                                        "status": "1"
+                                                    },
+                                                    "shutdown": {
+                                                        "status": "1"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "RUN_MODE": {
+                                    "label": "客户端启动模式",
+                                    "option": "1",
+                                    "desc": "锁定模式",
+                                    "jsonCheck": "(j: any) => j.mode == '1' && j.priority == '1'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '锁定模式' : '客户端优先'",
+                                    "jsonOption": {
+                                        "device_white_list": {
+                                            "enable": true,
+                                            "white_list": []
+                                        },
+                                        "mac_address_white_list": {
+                                            "enable": true,
+                                            "white_list": []
+                                        },
+                                        "priority": "1",
+                                        "mode": "1"
+                                    }
+                                },
+                                "MODIFY_COMPUTER_ALIAS": {
+                                    "label": "是否允许用户修改云电脑别名",
+                                    "option": "0",
+                                    "desc": "禁止",
+                                    "displayCheck": "(val) => val == '1' ? '允许' : '禁止'",
+                                    "jsonOption": ""
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "scene_id": 2,
+            "scene_name": "教师办公场景",
+            "templates": [
+                {
+                    "template_id": "office_standard",
+                    "template_name": "标准办公模板",
+                    "is_default": true,
+                    "roles": {
+                        "default": {
+                            "role_name": "默认",
+                            "config": {
+                                "usb_redirect": true,
+                                "bandwidth_limit_mbps": 20,
+                                "allow_clipboard": true,
+                                "auto_shutdown_mins": 120
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
