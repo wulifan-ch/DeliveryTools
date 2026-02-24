@@ -44,7 +44,7 @@
                                     "option": "1",
                                     "desc": "开启(还原至模板)",
                                     "jsonCheck": "(j: any) => j.enable == '1' && j.rebuildType == '2'",
-                                    "displayCheck": "(val, jsonMatch, remoteItem) => { let s = val == '1' ? '开启' : '关闭'; if(remoteItem?.strategybasicJsonOption) s += ' (自定义)'; return s; }",
+                                    "displayCheck": "(val, jsonMatch) => val == '1' ? (jsonMatch ? '开启 (还原至模板)' : '开启 (其他自定义)') : '关闭'",
                                     "jsonOption": {
                                         "rebuildType": "2",
                                         "enable": "1"
