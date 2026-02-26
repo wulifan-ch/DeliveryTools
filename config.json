@@ -56,7 +56,7 @@
                                     "desc": "禁用",
                                     "parentCode": "DESKTOP_TOOLBAR",
                                     "jsonCheck": "(j: any) => j?.BigScreen?.deskMin?.status == '0'",
-                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '禁用' : '启用'",
                                     "jsonOption": {
                                         "BigScreen": {
                                             "deskMin": {
@@ -71,7 +71,7 @@
                                     "desc": "禁用",
                                     "parentCode": "DESKTOP_TOOLBAR",
                                     "jsonCheck": "(j: any) => j?.BigScreen?.deskWin?.status == '0'",
-                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '禁用' : '启用'",
                                     "jsonOption": {
                                         "BigScreen": {
                                             "deskWin": {
@@ -86,7 +86,7 @@
                                     "desc": "禁用",
                                     "parentCode": "DESKTOP_TOOLBAR",
                                     "jsonCheck": "(j: any) => j?.BigScreen?.tools?.status == '0'",
-                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '✅ 符合' : '⚠️ 不符'",
+                                    "displayCheck": "(val, jsonMatch) => jsonMatch ? '禁用' : '启用'",
                                     "jsonOption": {
                                         "BigScreen": {
                                             "tools": {
